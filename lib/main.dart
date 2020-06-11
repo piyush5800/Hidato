@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      initialRoute: '/home',
+      initialRoute: '/puzzle',
       routes: {
         '/': (context) => LoadingScreen(),
         '/home': (context) => HomeScreen(),
