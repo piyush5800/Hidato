@@ -15,7 +15,7 @@ class HexGridWidgetExample extends StatefulWidget {
 }
 
 class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
-  List<HexGridChild> children = [];
+  List<ExampleHexGridChild> children = [];
 
   final double _minHexWidgetSize = 90;
 
@@ -29,9 +29,23 @@ class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
 
   final int _numOfHexGridChildWidgets = 19;
 
+  bool checkSolution() {
+    if (Provider.of<CurrentData>(context, listen: false).getNumberOfBlanks() ==
+        0) {
+      for (int i = 0; i < _numOfHexGridChildWidgets; i++) {
+        if (children[i].correctValue != children[i].currentValue) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   //Handler to handle what happens when a click is detected on any cell
   void cellClickHandler(int index) {
-    ExampleHexGridChild current = children[index];
+    ExampleHexGridChild current = children.elementAt(index);
     if (current.isPartOfPuzzle == false) {
       //current value in counter: to be inserted into cell
       int insertedValue =
@@ -53,6 +67,10 @@ class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
       setState(() {
         children[index] = current;
       });
+      //Check if the solution has been made
+      if (checkSolution()) {
+        Navigator.pop(context, -2);
+      }
     }
   }
 
@@ -97,6 +115,7 @@ class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
         ),
       );
     }
+    children = children.sublist(0, _numOfHexGridChildWidgets);
     return children;
   }
 }

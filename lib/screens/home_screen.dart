@@ -43,23 +43,39 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() => opacityLevel = opacityLevel == 0 ? 1.0 : 0.0);
   }
 
-  void LevelHandler() async {
+  void levelHandler() async {
     _changeOpacity();
     //Set the level value to 0 i.e. first level
     Provider.of<CurrentData>(context, listen: false).setLevel(level);
+    //Set the difficulty of the game
+    Provider.of<CurrentData>(context, listen: false)
+        .setDifficulty(diffManage.getQuestionText());
     //get the level screen (level =0 for level 1) and get in return the current level
     var returnedLevel = await Navigator.pushNamed(context, '/puzzle');
 
-    if (returnedLevel == -1) {
-      _changeOpacity();
-    }
-
+    //Handling Codes
+    //-1 for when exit is pressed
+    //-2 for when a level is successfully completed
+    //>=0 for level rendering
     while (returnedLevel != -1) {
+      if (returnedLevel == -2) {
+        //Handles the case when the level is completed
+        returnedLevel = await Navigator.pushNamed(context, '/levelComplete');
+        if (returnedLevel == -1) {
+          //handles the case when return to home screen is pressed on level complete
+          break;
+        }
+      }
       //If the returned level is not -1, get the level of returned level
       level = returnedLevel;
       Provider.of<CurrentData>(context, listen: false).setLevel(level);
       //push the new level
       returnedLevel = await Navigator.pushNamed(context, '/puzzle');
+    }
+    //Handles the case when the back button is pressed
+    if (returnedLevel == -1) {
+      level = 0;
+      _changeOpacity();
     }
   }
 
@@ -152,7 +168,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               child: Text('New Game'),
               shape: StadiumBorder(),
               borderSide: BorderSide(width: 3),
-              onPressed: () => LevelHandler(),
+              onPressed: () => levelHandler(),
             ),
             Opacity(
               opacity: 0.0,

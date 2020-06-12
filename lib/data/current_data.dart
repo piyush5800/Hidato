@@ -9,6 +9,7 @@ class CurrentData extends ChangeNotifier {
   int _currentNumberIndex;
   int _currentNumber;
   int _maxSize;
+  String _difficulty;
 
   void setLevel(int level) {
     this._level = level;
@@ -19,7 +20,7 @@ class CurrentData extends ChangeNotifier {
     _blanks.sort();
     _currentNumberIndex = 0;
     _currentNumber = _blanks.first;
-    _maxSize = 19;
+    _maxSize = _solution.length;
     notifyListeners();
   }
 
@@ -115,5 +116,18 @@ class CurrentData extends ChangeNotifier {
       _currentNumberIndex = _blanks.indexOf(_currentNumber);
     }
     notifyListeners();
+  }
+
+  void setDifficulty(String difficulty) {
+    this._difficulty = difficulty;
+    notifyListeners();
+  }
+
+  String getDifficulty() {
+    return this._difficulty;
+  }
+
+  int getNumberOfBlanks() {
+    return _blanks.length;
   }
 }

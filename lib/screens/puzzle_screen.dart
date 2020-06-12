@@ -19,7 +19,29 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            //Level Indicator
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context, -1);
+                  },
+                  iconSize: 40,
+                ),
+                IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: () {
+                    Navigator.pop(
+                      context,
+                      Provider.of<CurrentData>(context, listen: false)
+                          .getLevel(),
+                    );
+                  },
+                  iconSize: 40,
+                ),
+              ],
+            ),
             IntrinsicHeight(
               child: Container(
                 padding: EdgeInsets.all(10),
@@ -30,14 +52,20 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 ),
               ),
             ),
-            //Grid Container
+            Center(
+              child: Container(
+                child: Text(
+                  "Difficulty: ${Provider.of<CurrentData>(context, listen: false).getDifficulty()}",
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+              ),
+            ),
             Expanded(
               flex: 8,
               child: Center(
                 child: HexGridWidgetExample(),
               ),
             ),
-            //Current Number Counter
             IntrinsicHeight(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 80),
@@ -69,7 +97,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 ),
               ),
             ),
-            //Solution and Next Puzzle Buttons
             IntrinsicHeight(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -81,17 +108,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                     },
                   ),
                   PlayScreenBottomButton(
-                    title: "Reset",
-                    onPressed: () {
-                      Navigator.pop(
-                        context,
-                        Provider.of<CurrentData>(context, listen: false)
-                            .getLevel(),
-                      );
-                    },
-                  ),
-                  PlayScreenBottomButton(
-                    title: "Next Puzzle",
+                    title: "Next Level",
                     onPressed: () {
                       Navigator.pop(
                         context,
