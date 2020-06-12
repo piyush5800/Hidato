@@ -83,21 +83,21 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return AnimatedOpacity(
       opacity: opacityLevel,
       duration: Duration(milliseconds: 400),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IntrinsicHeight(
+                child: Row(
                   children: <Widget>[
                     Opacity(
                       opacity: 0.0,
                       child: IconButton(
                         onPressed: null,
                         icon: Icon(MyFlutterApp.music),
-                        iconSize: 30.0,
+                        iconSize: 40.0,
                       ),
                     ),
                     Opacity(
@@ -105,96 +105,112 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       child: IconButton(
                         onPressed: null,
                         icon: Icon(MyFlutterApp.speaker),
-                        iconSize: 30.0,
+                        iconSize: 40.0,
                       ),
                     ),
                   ],
                 ),
-                Opacity(
-                  opacity: 0.0,
-                  child: IconButton(
-                    onPressed: null,
-                    icon: Icon(MyFlutterApp.remove_ads),
-                    iconSize: 30.0,
-                  ),
-                ),
-              ],
-            ),
-            Icon(
-              MyFlutterApp.Hidato,
-              size: 250.0,
-            ),
-            SizedBox(
-              height: 10.0,
-              width: 150.0,
-              child: Divider(
-                thickness: 2.0,
-                color: Colors.black54,
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 80.0),
-                  child: IconButton(
-                    onPressed: diffManage.getCorrectAnswer() == 1
-                        ? null
-                        : () {
-                            decrement();
-                          },
-                    icon: Icon(Icons.arrow_left),
-                    iconSize: 50.0,
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      diffManage.getQuestionText(),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 80.0),
-                  child: IconButton(
-                    onPressed: diffManage.getCorrectAnswer() == 5
-                        ? null
-                        : () {
-                            increment();
-                          },
-                    icon: Icon(Icons.arrow_right),
-                    iconSize: 50.0,
-                  ),
-                ),
-              ],
-            ),
-            OutlineButton(
-              child: Text('New Game'),
-              shape: StadiumBorder(),
-              borderSide: BorderSide(width: 3),
-              onPressed: () => levelHandler(),
-            ),
-            Opacity(
-              opacity: 0.0,
-              child: OutlineButton(
-                onPressed: null,
-                child: Text('Resume'),
-                shape: StadiumBorder(),
-                borderSide: BorderSide(width: 3),
-              ),
-            ),
-            Opacity(
-              opacity: 0.0,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
+              Opacity(
+                opacity: 0.0,
                 child: IconButton(
                   onPressed: null,
-                  icon: Icon(MyFlutterApp.paint),
+                  icon: Icon(MyFlutterApp.remove_ads),
                   iconSize: 40.0,
                 ),
               ),
+            ],
+          ),
+          Icon(
+            MyFlutterApp.Hidato,
+            size: 250.0,
+          ),
+          Text(
+            "HIDATO",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          SizedBox(
+            height: 10.0,
+            width: 150.0,
+            child: Divider(
+              thickness: 2.0,
+              color: Colors.black54,
             ),
-            Row(
+          ),
+          Column(
+            children: <Widget>[
+              Text(
+                "DIFFICULTY",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 80.0),
+                    child: IconButton(
+                      onPressed: diffManage.getCorrectAnswer() == 1
+                          ? null
+                          : () {
+                              decrement();
+                            },
+                      icon: Icon(Icons.arrow_left),
+                      iconSize: 50.0,
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        diffManage.getQuestionText(),
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 80.0),
+                    child: IconButton(
+                      onPressed: diffManage.getCorrectAnswer() == 5
+                          ? null
+                          : () {
+                              increment();
+                            },
+                      icon: Icon(Icons.arrow_right),
+                      iconSize: 50.0,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                OutlineButton(
+                  child: Text(
+                    'New Game',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  shape: StadiumBorder(),
+                  borderSide: BorderSide(width: 2),
+                  highlightedBorderColor: Colors.black54,
+                  onPressed: () => levelHandler(),
+                ),
+                OutlineButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Resume',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  shape: StadiumBorder(),
+                  borderSide: BorderSide(width: 2),
+                ),
+              ],
+            ),
+          ),
+          IntrinsicHeight(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Opacity(
@@ -202,7 +218,18 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   child: IconButton(
                     onPressed: null,
                     icon: Icon(MyFlutterApp.gear),
-                    iconSize: 30.0,
+                    iconSize: 40.0,
+                  ),
+                ),
+                Opacity(
+                  opacity: 0.0,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: IconButton(
+                      onPressed: null,
+                      icon: Icon(MyFlutterApp.paint),
+                      iconSize: 40.0,
+                    ),
                   ),
                 ),
                 Opacity(
@@ -210,13 +237,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   child: IconButton(
                     onPressed: null,
                     icon: Icon(MyFlutterApp.information),
-                    iconSize: 30.0,
+                    iconSize: 40.0,
                   ),
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
