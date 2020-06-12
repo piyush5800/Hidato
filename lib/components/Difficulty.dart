@@ -1,15 +1,13 @@
-import 'package:flutter/widgets.dart';
-
-class Difficulty{
+class Difficulty {
   String name;
   int level;
-  Difficulty(this.name,this.level);
+  Difficulty(this.name, this.level);
 }
 
 class DifficultyManage {
-  int _currentDiff=0;
+  int _currentDiff = 0;
 
-  List <Difficulty> _difficulty = [
+  List<Difficulty> _difficulty = [
     Difficulty('Beginner', 1),
     Difficulty('Easy', 2),
     Difficulty('Medium', 3),
@@ -36,8 +34,4 @@ class DifficultyManage {
   int getCorrectAnswer() {
     return _difficulty[_currentDiff].level;
   }
-
 }
-
-
-

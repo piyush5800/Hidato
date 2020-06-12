@@ -4,6 +4,7 @@ import 'package:hidato/screens/home_screen.dart';
 import 'package:hidato/screens/puzzle_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:hidato/data/current_data.dart';
+import 'package:hidato/screens/level_complete_screen.dart';
 
 void main() {
   runApp(
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => LoadingScreen(),
         '/home': (context) => HomeScreen(),
         '/puzzle': (context) => PuzzleScreen(),
+        '/levelComplete': (context) => LevelCompleteScreen(),
       },
     );
   }
