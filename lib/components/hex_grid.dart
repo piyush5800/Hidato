@@ -43,8 +43,6 @@ class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
   }
 
   List<HexGridChild> createHexGridChildren(int numOfChildren) {
-//    CurrentData currentData = CurrentData();
-//    currentData.setLevel(widget.level);
     Set<int> puzzle = Provider.of<CurrentData>(context).getPuzzle();
     List<int> solution = Provider.of<CurrentData>(context).getSolution();
     for (int i = 0; i < solution.length; i++) {
@@ -52,18 +50,21 @@ class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
         ExampleHexGridChild(
           currentValue: puzzle.contains(solution[i]) ? solution[i] : -1,
           isVisible: puzzle.contains(solution[i]),
-          onTap: (int index) {
-            ExampleHexGridChild current = children[index];
-            current.updateCurrentCell(
-                Provider.of<CurrentData>(context, listen: false)
-                    .getCurrentNumber());
-            Provider.of<CurrentData>(context, listen: false).getNextNumber();
-            setState(() {
-              children[index] = current;
-            });
-          },
           index: i,
           correctValue: solution[i],
+          onTap: (int index) {
+            ExampleHexGridChild current = children[index];
+            if (solution[index] == current.currentValue) {
+            } else {
+              current.updateCurrentCell(
+                  Provider.of<CurrentData>(context, listen: false)
+                      .getCurrentNumber());
+              Provider.of<CurrentData>(context, listen: false).getNextNumber();
+              setState(() {
+                children[index] = current;
+              });
+            }
+          },
         ),
       );
     }
