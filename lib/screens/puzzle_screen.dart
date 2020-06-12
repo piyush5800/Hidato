@@ -6,18 +6,12 @@ class PuzzleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color.fromRGBO(144, 202, 249, 1),
-      //appBar: AppBar(
-      //backgroundColor: Color.fromRGBO(144, 202, 249, 1),
-      //title: Text('Hidato'),
-      //),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             IntrinsicHeight(
               child: Container(
-                //color: Colors.red,
                 padding: EdgeInsets.all(10),
                 child: Text(
                   "Level 3",
@@ -29,7 +23,9 @@ class PuzzleScreen extends StatelessWidget {
             Expanded(
               flex: 8,
               child: Center(
-                child: HexGridWidgetExample(),
+                child: HexGridWidgetExample(
+                  level: 0,
+                ),
               ),
             ),
             IntrinsicHeight(
@@ -42,7 +38,6 @@ class PuzzleScreen extends StatelessWidget {
                     Container(
                       child: Icon(
                         Icons.remove,
-                        //color: Colors.white,
                         size: 50,
                       ),
                     ),
@@ -55,7 +50,6 @@ class PuzzleScreen extends StatelessWidget {
                     Container(
                       child: Icon(
                         Icons.add,
-                        //color: Colors.white,
                         size: 50,
                       ),
                     ),

@@ -13,8 +13,22 @@ import 'package:polygon_clipper/polygon_clipper.dart';
 // as much flexibility when building and sizing your HexGridChild widget.
 class ExampleHexGridChild extends HexGridChild {
   final int index;
+  int currentValue;
+  final int correctValue;
+  bool isVisible;
+  final Function onTap;
 
-  ExampleHexGridChild(this.index);
+  void updateCurrentCell(int value) {
+    currentValue = value;
+    isVisible = !isVisible;
+  }
+
+  ExampleHexGridChild(
+      {this.index,
+      this.currentValue,
+      this.isVisible,
+      this.onTap,
+      this.correctValue});
 
   //This is only one example of the customization you can expect from these
   // framework hooks
@@ -30,9 +44,7 @@ class ExampleHexGridChild extends HexGridChild {
 
   Widget getPolygon(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print("Button Pressed $index");
-      },
+      onTap: () => onTap(index),
       child: ClipPolygon(
         sides: 6,
         borderRadius: 5.0, // Default 0.0 degrees
@@ -44,7 +56,7 @@ class ExampleHexGridChild extends HexGridChild {
         child: Container(
           child: Center(
             child: Text(
-              index.toString(),
+              isVisible ? currentValue.toString() : '',
               style: TextStyle(color: Colors.white, fontSize: 30),
             ),
           ),

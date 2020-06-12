@@ -4,13 +4,32 @@ import 'package:hexagonal_grid_widget/hex_grid_child.dart';
 import 'package:hexagonal_grid_widget/hex_grid_context.dart';
 import 'package:hexagonal_grid_widget/hex_grid_widget.dart';
 import 'package:hidato/components/hex_grid_child.dart';
+import 'package:hidato/data/puzzles.dart';
+import 'package:hidato/data/current_data.dart';
 
-class HexGridWidgetExample extends StatelessWidget {
+class HexGridWidgetExample extends StatefulWidget {
+  final int level;
+  HexGridWidgetExample({this.level});
+
+  @override
+  _HexGridWidgetExampleState createState() => _HexGridWidgetExampleState();
+}
+
+class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
+  List<HexGridChild> children = [];
+
+  final int currentNumber = 0;
+
   final double _minHexWidgetSize = 90;
+
   final double _maxHexWidgetSize = 90;
+
   final double _scaleFactor = 0.2;
+
   final double _densityFactor = 1.90;
+
   final double _velocityFactor = 0.0;
+
   final int _numOfHexGridChildWidgets = 19;
 
   @override
@@ -24,13 +43,27 @@ class HexGridWidgetExample extends StatelessWidget {
     );
   }
 
-  //This would likely be a service (RESTful or DB) that retrieves some data and
-  // marshals them into HexGridChild objects
   List<HexGridChild> createHexGridChildren(int numOfChildren) {
-    List<HexGridChild> children = [];
+    CurrentData currentData = CurrentData(widget.level);
+    Set<int> puzzle = currentData.getPuzzle();
+    List<int> solution = currentData.getSolution();
 
-    for (int i = 0; i < numOfChildren; i++) {
-      children.add(ExampleHexGridChild(i));
+    for (int i = 0; i < solution.length; i++) {
+      children.add(
+        ExampleHexGridChild(
+          currentValue: puzzle.contains(solution[i]) ? solution[i] : -1,
+          isVisible: puzzle.contains(solution[i]),
+          onTap: (int index) {
+            ExampleHexGridChild current = children[index];
+            current.updateCurrentCell(5);
+            setState(() {
+              children[index] = current;
+            });
+          },
+          index: i,
+          correctValue: solution[i],
+        ),
+      );
     }
 
     return children;

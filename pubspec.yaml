@@ -33,6 +33,8 @@ dependencies:
 
   polygon_clipper: ^1.0.2
 
+  provider: ^4.1.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
