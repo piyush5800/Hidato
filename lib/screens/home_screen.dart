@@ -138,9 +138,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 Padding(
                   padding: const EdgeInsets.only(left: 80.0),
                   child: IconButton(
-                    onPressed: () {
-                      decrement();
-                    },
+                    onPressed: diffManage.getCorrectAnswer() == 1
+                        ? null
+                        : () {
+                            decrement();
+                          },
                     icon: Icon(Icons.arrow_left),
                     iconSize: 50.0,
                   ),
@@ -155,9 +157,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 Padding(
                   padding: const EdgeInsets.only(right: 80.0),
                   child: IconButton(
-                    onPressed: () {
-                      increment();
-                    },
+                    onPressed: diffManage.getCorrectAnswer() == 5
+                        ? null
+                        : () {
+                            increment();
+                          },
                     icon: Icon(Icons.arrow_right),
                     iconSize: 50.0,
                   ),
