@@ -10,21 +10,8 @@ class CurrentData extends ChangeNotifier {
   int _currentNumber;
   int _maxSize;
 
-  //REMOVE WHEN setLevel is enabled
-  CurrentData() {
-    this._level = 0;
-    Puzzles puzzles = Puzzles();
-    _puzzle = puzzles.getPuzzle_19(_level);
-    _solution = puzzles.getSolution_19(_level);
-    _blanks = puzzles.getBlanks(_level);
-    _blanks.sort();
-    _currentNumberIndex = 0;
-    _currentNumber = _blanks.first;
-    _maxSize = 19;
-  }
-  //Remove above
   void setLevel(int level) {
-    this._level = 0;
+    this._level = level;
     Puzzles puzzles = Puzzles();
     _puzzle = puzzles.getPuzzle_19(_level);
     _solution = puzzles.getSolution_19(_level);
@@ -33,6 +20,7 @@ class CurrentData extends ChangeNotifier {
     _currentNumberIndex = 0;
     _currentNumber = _blanks.first;
     _maxSize = 19;
+    notifyListeners();
   }
 
   Set<int> getPuzzle() {
