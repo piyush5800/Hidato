@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:hidato/components/hex_grid.dart';
 import 'package:provider/provider.dart';
 import 'package:hidato/data/current_data.dart';
+import 'package:hidato/components/play_screen_bottom_button.dart';
+import 'package:hidato/components/play_screen_counter_icon.dart';
 
 class PuzzleScreen extends StatefulWidget {
   @override
@@ -10,12 +12,8 @@ class PuzzleScreen extends StatefulWidget {
 }
 
 class _PuzzleScreenState extends State<PuzzleScreen> {
-  //Get Level from home screen - remove this
-  int level = 0;
-
   @override
   Widget build(BuildContext context) {
-    //Provider.of<CurrentData>(context).setLevel(level);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -26,7 +24,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               child: Container(
                 padding: EdgeInsets.all(10),
                 child: Text(
-                  "Level ${Provider.of<CurrentData>(context).getLevel()}",
+                  "Level ${Provider.of<CurrentData>(context).getLevel() + 1}",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline1,
                 ),
@@ -47,17 +45,12 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      child: GestureDetector(
-                        onTap: () {
-                          Provider.of<CurrentData>(context, listen: false)
-                              .getPreviousNumber();
-                        },
-                        child: Icon(
-                          Icons.remove,
-                          size: 50,
-                        ),
-                      ),
+                    PlayScreenCounterIcon(
+                      iconData: Icons.remove,
+                      onTap: () {
+                        Provider.of<CurrentData>(context, listen: false)
+                            .getPreviousNumber();
+                      },
                     ),
                     Container(
                       child: Text(
@@ -65,17 +58,12 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         style: Theme.of(context).textTheme.headline3,
                       ),
                     ),
-                    Container(
-                      child: GestureDetector(
-                        onTap: () {
-                          Provider.of<CurrentData>(context, listen: false)
-                              .getNextNumber();
-                        },
-                        child: Icon(
-                          Icons.add,
-                          size: 50,
-                        ),
-                      ),
+                    PlayScreenCounterIcon(
+                      iconData: Icons.add,
+                      onTap: () {
+                        Provider.of<CurrentData>(context, listen: false)
+                            .getNextNumber();
+                      },
                     ),
                   ],
                 ),
@@ -86,31 +74,23 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Expanded(
-                    child: MaterialButton(
-                      onPressed: () {
-                        print("Button Pressed");
-                      },
-                      child: Container(
-                        child: Text(
-                          "Solution",
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                      ),
-                    ),
+                  PlayScreenBottomButton(
+                    title: "Solution",
+                    onPressed: () {
+                      print("Button Pressed");
+                    },
                   ),
-                  Expanded(
-                    child: MaterialButton(
-                      onPressed: () {
-                        print("Button Pressed");
-                      },
-                      child: Container(
-                        child: Text(
-                          "Next Puzzle",
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                      ),
-                    ),
+                  PlayScreenBottomButton(
+                    title: "Reset",
+                    onPressed: () {
+                      print("Button Pressed");
+                    },
+                  ),
+                  PlayScreenBottomButton(
+                    title: "Next Puzzle",
+                    onPressed: () {
+                      print("Button Pressed");
+                    },
                   ),
                 ],
               ),

@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       themeMode: ThemeMode.system,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
         canvasColor: Colors.white,
         backgroundColor: Colors.white,
         accentColor: Colors.black54,
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData.dark(),
-      initialRoute: '/puzzle',
+      initialRoute: '/home',
       routes: {
         '/': (context) => LoadingScreen(),
         '/home': (context) => HomeScreen(),
