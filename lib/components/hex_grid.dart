@@ -49,17 +49,31 @@ class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
       children.add(
         ExampleHexGridChild(
           currentValue: puzzle.contains(solution[i]) ? solution[i] : -1,
+          isPartOfPuzzle: puzzle.contains(solution[i]),
           isVisible: puzzle.contains(solution[i]),
           index: i,
           correctValue: solution[i],
           onTap: (int index) {
+            //print("Index: $index");
             ExampleHexGridChild current = children[index];
-            if (solution[index] == current.currentValue) {
+            if (current.isPartOfPuzzle == true) {
+              //print("exception case");
             } else {
-              current.updateCurrentCell(
+              int insertedValue =
+                  Provider.of<CurrentData>(context, listen: false)
+                      .getCurrentNumber();
+              //print("Inserted Value: $insertedValue");
+              int returnedValue = current.updateCurrentCell(
                   Provider.of<CurrentData>(context, listen: false)
                       .getCurrentNumber());
-              Provider.of<CurrentData>(context, listen: false).getNextNumber();
+              //print("Returned Value: $returnedValue");
+              if (returnedValue == insertedValue) {
+                Provider.of<CurrentData>(context, listen: false)
+                    .removeNumberUponInsertion(returnedValue);
+              } else {
+                Provider.of<CurrentData>(context, listen: false)
+                    .insertNumberUponRemoval(returnedValue);
+              }
               setState(() {
                 children[index] = current;
               });

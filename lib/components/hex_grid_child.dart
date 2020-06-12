@@ -17,10 +17,19 @@ class ExampleHexGridChild extends HexGridChild {
   final int correctValue;
   bool isVisible;
   final Function onTap;
+  final bool isPartOfPuzzle;
 
-  void updateCurrentCell(int value) {
-    currentValue = value;
-    isVisible = !isVisible;
+  int updateCurrentCell(int value) {
+    if (isVisible) {
+      int valueToBeReinserted = currentValue;
+      currentValue = -1;
+      isVisible = false;
+      return valueToBeReinserted;
+    } else {
+      currentValue = value;
+      isVisible = !isVisible;
+      return value;
+    }
   }
 
   ExampleHexGridChild(
@@ -28,7 +37,8 @@ class ExampleHexGridChild extends HexGridChild {
       this.currentValue,
       this.isVisible,
       this.onTap,
-      this.correctValue});
+      this.correctValue,
+      this.isPartOfPuzzle});
 
   //This is only one example of the customization you can expect from these
   // framework hooks

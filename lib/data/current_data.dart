@@ -8,6 +8,7 @@ class CurrentData extends ChangeNotifier {
   List<int> _blanks;
   int _currentNumberIndex;
   int _currentNumber;
+  int _maxSize;
 
   //REMOVE WHEN setLevel is enabled
   CurrentData() {
@@ -19,6 +20,7 @@ class CurrentData extends ChangeNotifier {
     _blanks.sort();
     _currentNumberIndex = 0;
     _currentNumber = _blanks.first;
+    _maxSize = 19;
   }
   //Remove above
   void setLevel(int level) {
@@ -28,7 +30,7 @@ class CurrentData extends ChangeNotifier {
     _solution = puzzles.getSolution_19(_level);
     _blanks = puzzles.getBlanks(_level);
     _blanks.sort();
-    _currentNumberIndex = 4;
+    _currentNumberIndex = 0;
     _currentNumber = _blanks.first;
   }
 
@@ -69,6 +71,46 @@ class CurrentData extends ChangeNotifier {
       _currentNumberIndex = _currentNumberIndex + 1;
     }
     _currentNumber = _blanks[_currentNumberIndex];
+    notifyListeners();
+  }
+
+  void removeNumberUponInsertion(int insertedValue) {
+    _blanks.remove(insertedValue);
+    int i;
+    for (i = 0; i < _blanks.length; i++) {
+      if (_blanks[i] > insertedValue) {
+        break;
+      }
+    }
+    //print("length:${_blanks.length}");
+    if (_blanks.length == 0) {
+      _currentNumber = _maxSize;
+    } else if (_blanks.length != 0 && _currentNumber == 19) {
+      _currentNumberIndex = 0;
+      _currentNumber = _blanks[_currentNumberIndex];
+    } else if (insertedValue == _maxSize - 1) {
+      _currentNumberIndex = 0;
+      _currentNumber = _blanks[_currentNumberIndex];
+    } else {
+      _currentNumberIndex = i;
+      _currentNumber = _blanks[_currentNumberIndex];
+    }
+    notifyListeners();
+  }
+
+  void insertNumberUponRemoval(int removedValue) {
+    if (_currentNumber == 19) {
+      _blanks.add(removedValue);
+      //print("length:${_blanks.length}");
+      _currentNumberIndex = 0;
+      _currentNumber = _blanks[_currentNumberIndex];
+    } else {
+      _blanks.add(removedValue);
+      _blanks.sort();
+      //print("length:${_blanks.length}");
+      _currentNumberIndex = _blanks.indexOf(_currentNumber);
+    }
+
     notifyListeners();
   }
 }
