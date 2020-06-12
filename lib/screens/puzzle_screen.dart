@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hidato/components/hex_grid.dart';
+import 'package:provider/provider.dart';
+import 'package:hidato/data/current_data.dart';
 
-class PuzzleScreen extends StatelessWidget {
+class PuzzleScreen extends StatefulWidget {
+  @override
+  _PuzzleScreenState createState() => _PuzzleScreenState();
+}
+
+class _PuzzleScreenState extends State<PuzzleScreen> {
+  int level = 0;
+
   @override
   Widget build(BuildContext context) {
+    //Provider.of<CurrentData>(context).setLevel(level);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -14,7 +24,7 @@ class PuzzleScreen extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(10),
                 child: Text(
-                  "Level 3",
+                  "Level ${Provider.of<CurrentData>(context).getLevel()}",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline1,
                 ),
@@ -24,7 +34,7 @@ class PuzzleScreen extends StatelessWidget {
               flex: 8,
               child: Center(
                 child: HexGridWidgetExample(
-                  level: 0,
+                  level: Provider.of<CurrentData>(context).getLevel(),
                 ),
               ),
             ),
@@ -36,21 +46,33 @@ class PuzzleScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      child: Icon(
-                        Icons.remove,
-                        size: 50,
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<CurrentData>(context, listen: false)
+                              .getPreviousNumber();
+                        },
+                        child: Icon(
+                          Icons.remove,
+                          size: 50,
+                        ),
                       ),
                     ),
                     Container(
                       child: Text(
-                        "3",
+                        "${Provider.of<CurrentData>(context).getCurrentNumber()}",
                         style: Theme.of(context).textTheme.headline3,
                       ),
                     ),
                     Container(
-                      child: Icon(
-                        Icons.add,
-                        size: 50,
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<CurrentData>(context, listen: false)
+                              .getNextNumber();
+                        },
+                        child: Icon(
+                          Icons.add,
+                          size: 50,
+                        ),
                       ),
                     ),
                   ],

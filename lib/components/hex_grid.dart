@@ -4,8 +4,9 @@ import 'package:hexagonal_grid_widget/hex_grid_child.dart';
 import 'package:hexagonal_grid_widget/hex_grid_context.dart';
 import 'package:hexagonal_grid_widget/hex_grid_widget.dart';
 import 'package:hidato/components/hex_grid_child.dart';
-import 'package:hidato/data/puzzles.dart';
 import 'package:hidato/data/current_data.dart';
+
+import 'package:provider/provider.dart';
 
 class HexGridWidgetExample extends StatefulWidget {
   final int level;
@@ -17,8 +18,6 @@ class HexGridWidgetExample extends StatefulWidget {
 
 class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
   List<HexGridChild> children = [];
-
-  final int currentNumber = 0;
 
   final double _minHexWidgetSize = 90;
 
@@ -44,10 +43,10 @@ class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
   }
 
   List<HexGridChild> createHexGridChildren(int numOfChildren) {
-    CurrentData currentData = CurrentData(widget.level);
-    Set<int> puzzle = currentData.getPuzzle();
-    List<int> solution = currentData.getSolution();
-
+//    CurrentData currentData = CurrentData();
+//    currentData.setLevel(widget.level);
+    Set<int> puzzle = Provider.of<CurrentData>(context).getPuzzle();
+    List<int> solution = Provider.of<CurrentData>(context).getSolution();
     for (int i = 0; i < solution.length; i++) {
       children.add(
         ExampleHexGridChild(
@@ -55,7 +54,10 @@ class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
           isVisible: puzzle.contains(solution[i]),
           onTap: (int index) {
             ExampleHexGridChild current = children[index];
-            current.updateCurrentCell(5);
+            current.updateCurrentCell(
+                Provider.of<CurrentData>(context, listen: false)
+                    .getCurrentNumber());
+            Provider.of<CurrentData>(context, listen: false).getNextNumber();
             setState(() {
               children[index] = current;
             });

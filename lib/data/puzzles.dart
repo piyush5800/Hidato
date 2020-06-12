@@ -1,7 +1,3 @@
-import 'dart:collection';
-
-import 'package:flutter/cupertino.dart';
-
 class Puzzles {
   List<Set<int>> _puzzles_19 = [
     {17, 14, 19, 1, 3, 9, 7},
@@ -19,13 +15,13 @@ class Puzzles {
     return _solutions_19[i];
   }
 
-  SplayTreeSet<int> getBlanks(int i) {
-    SplayTreeSet<int> set = SplayTreeSet<int>();
+  List<int> getBlanks(int i) {
+    List<int> list = [];
     for (int j in _solutions_19[i]) {
       if (!_puzzles_19[i].contains(j)) {
-        set.add(j);
+        list.add(j);
       }
     }
-    return set;
+    return list;
   }
 }

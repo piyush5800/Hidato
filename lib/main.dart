@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:hidato/screens/loading_screen.dart';
 import 'package:hidato/screens/home_screen.dart';
 import 'package:hidato/screens/puzzle_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:hidato/data/current_data.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CurrentData(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
