@@ -81,8 +81,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 0.0, horizontal: 25.0),
+                  padding: const EdgeInsets.only(left: 80.0),
                   child: IconButton(
                     onPressed: () {
                       decrement();
@@ -91,12 +90,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     iconSize: 50.0,
                   ),
                 ),
-                Text(
-                  diffManage.getQuestionText(),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      diffManage.getQuestionText(),
+                    ),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 0.0, horizontal: 25.0),
+                  padding: const EdgeInsets.only(right: 80.0),
                   child: IconButton(
                     onPressed: () {
                       increment();
@@ -107,22 +109,28 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ],
             ),
-            FlatButton(
+            OutlineButton(
               onPressed: () {
-                Provider.of<CurrentData>(context, listen: false)
-                    .setLevel(level);
+                Provider.of<CurrentData>(context, listen: false).setLevel(level);
                 Navigator.pushNamed(context, '/puzzle');
               },
               child: Text('New Game'),
+              shape: StadiumBorder(),
+              borderSide: BorderSide(width: 3),
             ),
-            FlatButton(
+            OutlineButton(
               onPressed: () {},
               child: Text('Resume'),
+              shape: StadiumBorder(),
+              borderSide: BorderSide(width: 3),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(MyFlutterApp.paint),
-              iconSize: 40.0,
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(MyFlutterApp.paint),
+                iconSize: 40.0,
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
