@@ -15,25 +15,13 @@ class HexGridWidgetExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Example"),
-          centerTitle: true,
-        ),
-        body: Material(
-          type: MaterialType.transparency,
-          child: Container(
-            color: Colors.white,
-            child: HexGridWidget(
-                children: createHexGridChildren(_numOfHexGridChildWidgets),
-                hexGridContext: HexGridContext(
-                    _minHexWidgetSize,
-                    _maxHexWidgetSize,
-                    _scaleFactor,
-                    _densityFactor,
-                    _velocityFactor)),
-          ),
-        ));
+    return Container(
+      child: HexGridWidget(
+        children: createHexGridChildren(_numOfHexGridChildWidgets),
+        hexGridContext: HexGridContext(_minHexWidgetSize, _maxHexWidgetSize,
+            _scaleFactor, _densityFactor, _velocityFactor),
+      ),
+    );
   }
 
   //This would likely be a service (RESTful or DB) that retrieves some data and

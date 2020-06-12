@@ -25,20 +25,34 @@ class ExampleHexGridChild extends HexGridChild {
         width: size,
         height: size,
         padding: EdgeInsets.all((hexGridContext.maxSize - size) / 2),
-        child: getPolygon()
-     );
+        child: getPolygon(context));
   }
 
-  Widget getPolygon() {
-    return ClipPolygon(
-      sides: 6,
-      borderRadius: 5.0, // Default 0.0 degrees
-      //rotate: 90.0, // Default 0.0 degrees
-      boxShadows: [
-        PolygonBoxShadow(color: Colors.black, elevation: 1.0),
-        PolygonBoxShadow(color: Colors.grey, elevation: 5.0)
-      ],
-      child: Container(color: Colors.orangeAccent),
+  Widget getPolygon(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        print("Button Pressed $index");
+      },
+      child: ClipPolygon(
+        sides: 6,
+        borderRadius: 5.0, // Default 0.0 degrees
+        //rotate: 90.0, // Default 0.0 degrees
+        boxShadows: [
+          //PolygonBoxShadow(color: Colors.black, elevation: 1.0),
+          //PolygonBoxShadow(color: Colors.grey, elevation: 3.0)
+        ],
+        child: Container(
+          child: Center(
+            child: Text(
+              index.toString(),
+              style: TextStyle(color: Colors.white, fontSize: 30),
+            ),
+          ),
+          decoration: BoxDecoration(
+            color: Theme.of(context).accentColor,
+          ),
+        ),
+      ),
     );
   }
 
