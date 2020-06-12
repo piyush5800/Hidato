@@ -83,13 +83,22 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                   PlayScreenBottomButton(
                     title: "Reset",
                     onPressed: () {
-                      print("Button Pressed");
+                      Navigator.pop(
+                        context,
+                        Provider.of<CurrentData>(context, listen: false)
+                            .getLevel(),
+                      );
                     },
                   ),
                   PlayScreenBottomButton(
                     title: "Next Puzzle",
                     onPressed: () {
-                      print("Button Pressed");
+                      Navigator.pop(
+                        context,
+                        Provider.of<CurrentData>(context, listen: false)
+                                .getLevel() +
+                            1,
+                      );
                     },
                   ),
                 ],

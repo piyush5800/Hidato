@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hidato/screens/loading_screen.dart';
 import 'package:hidato/screens/home_screen.dart';
 import 'package:hidato/screens/puzzle_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:hidato/data/current_data.dart';
 import 'package:hidato/screens/level_complete_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 void main() {
   runApp(
@@ -48,11 +48,29 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: ThemeData.dark(),
       initialRoute: '/home',
-      routes: {
-        '/': (context) => LoadingScreen(),
-        '/home': (context) => HomeScreen(),
-        '/puzzle': (context) => PuzzleScreen(),
-        '/levelComplete': (context) => LevelCompleteScreen(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/home':
+            return PageTransition(
+                child: HomeScreen(),
+                type: PageTransitionType.fade,
+                duration: Duration(milliseconds: 400));
+            break;
+          case '/puzzle':
+            return PageTransition(
+                child: PuzzleScreen(),
+                type: PageTransitionType.fade,
+                duration: Duration(milliseconds: 400));
+            break;
+          case '/levelComplete':
+            return PageTransition(
+                child: LevelCompleteScreen(),
+                type: PageTransitionType.fade,
+                duration: Duration(milliseconds: 400));
+            break;
+          default:
+            return null;
+        }
       },
     );
   }
