@@ -10,6 +10,7 @@ class PuzzleScreen extends StatefulWidget {
 }
 
 class _PuzzleScreenState extends State<PuzzleScreen> {
+  //Get Level from home screen - remove this
   int level = 0;
 
   @override
@@ -20,6 +21,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            //Level Indicator
             IntrinsicHeight(
               child: Container(
                 padding: EdgeInsets.all(10),
@@ -30,14 +32,14 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 ),
               ),
             ),
+            //Grid Container
             Expanded(
               flex: 8,
               child: Center(
-                child: HexGridWidgetExample(
-                  level: Provider.of<CurrentData>(context).getLevel(),
-                ),
+                child: HexGridWidgetExample(),
               ),
             ),
+            //Current Number Counter
             IntrinsicHeight(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 80),
@@ -79,6 +81,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 ),
               ),
             ),
+            //Solution and Next Puzzle Buttons
             IntrinsicHeight(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

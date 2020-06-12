@@ -32,6 +32,7 @@ class CurrentData extends ChangeNotifier {
     _blanks.sort();
     _currentNumberIndex = 0;
     _currentNumber = _blanks.first;
+    _maxSize = 19;
   }
 
   Set<int> getPuzzle() {
@@ -56,61 +57,75 @@ class CurrentData extends ChangeNotifier {
 
   void getPreviousNumber() {
     if (_currentNumberIndex == 0) {
+      //Handles the case when the current element is first element
       _currentNumberIndex = _currentNumberIndex;
     } else {
+      //Handles all other cases
       _currentNumberIndex = _currentNumberIndex - 1;
     }
+    //Updates the value of current number
     _currentNumber = _blanks[_currentNumberIndex];
     notifyListeners();
   }
 
   void getNextNumber() {
     if (_currentNumberIndex == _blanks.length - 1) {
+      //Handles the case when the current element is last element
       _currentNumberIndex = _currentNumberIndex;
     } else {
+      //Handles all other cases
       _currentNumberIndex = _currentNumberIndex + 1;
     }
+    //Updates the value of current number
     _currentNumber = _blanks[_currentNumberIndex];
     notifyListeners();
   }
 
   void removeNumberUponInsertion(int insertedValue) {
+    //Removes the values inserted into grid from available numbers(_blanks)
     _blanks.remove(insertedValue);
-    int i;
-    for (i = 0; i < _blanks.length; i++) {
-      if (_blanks[i] > insertedValue) {
-        break;
-      }
-    }
-    //print("length:${_blanks.length}");
+
     if (_blanks.length == 0) {
+      //Handles the case when all the numbers are inserted
       _currentNumber = _maxSize;
-    } else if (_blanks.length != 0 && _currentNumber == 19) {
-      _currentNumberIndex = 0;
-      _currentNumber = _blanks[_currentNumberIndex];
-    } else if (insertedValue == _maxSize - 1) {
-      _currentNumberIndex = 0;
-      _currentNumber = _blanks[_currentNumberIndex];
     } else {
-      _currentNumberIndex = i;
-      _currentNumber = _blanks[_currentNumberIndex];
+      //Handles the case when at least one number is available to insert
+      if (insertedValue == _maxSize - 1) {
+        //Handles the case where maxSize-1 is inserted
+        _currentNumberIndex = 0;
+        _currentNumber = _blanks[_currentNumberIndex];
+      } else {
+        //Finds the next larger value
+        int i;
+        for (i = 0; i < _blanks.length; i++) {
+          if (_blanks[i] > insertedValue) {
+            break;
+          }
+        }
+        //Assigns the found number to correct variables
+        _currentNumberIndex = i;
+        _currentNumber = _blanks[_currentNumberIndex];
+
+        //Case Removed: _blanks.length != 0 && _currentNumber == 19
+        //Consequences of case:_currentNumberIndex = 0
+        //                     _currentNumber = _blanks[_currentNumberIndex];
+      }
     }
     notifyListeners();
   }
 
   void insertNumberUponRemoval(int removedValue) {
     if (_currentNumber == 19) {
+      //Handles the case when all numbers are inserted and one is removed
       _blanks.add(removedValue);
-      //print("length:${_blanks.length}");
       _currentNumberIndex = 0;
       _currentNumber = _blanks[_currentNumberIndex];
     } else {
+      //Handles all other cases
       _blanks.add(removedValue);
       _blanks.sort();
-      //print("length:${_blanks.length}");
       _currentNumberIndex = _blanks.indexOf(_currentNumber);
     }
-
     notifyListeners();
   }
 }

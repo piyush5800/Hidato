@@ -16,7 +16,7 @@ class ExampleHexGridChild extends HexGridChild {
   int currentValue;
   final int correctValue;
   bool isVisible;
-  final Function onTap;
+  Function onTap;
   final bool isPartOfPuzzle;
 
   int updateCurrentCell(int value) {
