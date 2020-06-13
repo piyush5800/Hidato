@@ -56,11 +56,20 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     //Handling Codes
     //-1 for when exit is pressed
     //-2 for when a level is successfully completed
+    //-3 for when solution button is pressed
     //>=0 for level rendering
     while (returnedLevel != -1) {
       if (returnedLevel == -2) {
         //Handles the case when the level is completed
         returnedLevel = await Navigator.pushNamed(context, '/levelComplete');
+        if (returnedLevel == -1) {
+          //handles the case when return to home screen is pressed on level complete
+          break;
+        }
+      }
+      if (returnedLevel == -3) {
+        //Handles the case when the solution button is pressed
+        returnedLevel = await Navigator.pushNamed(context, '/solution');
         if (returnedLevel == -1) {
           //handles the case when return to home screen is pressed on level complete
           break;

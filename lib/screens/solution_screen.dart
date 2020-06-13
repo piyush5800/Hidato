@@ -5,13 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:hidato/data/current_data.dart';
 import 'package:hidato/components/play_screen_bottom_button.dart';
 import 'package:hidato/components/play_screen_counter_icon.dart';
+import 'package:hidato/components/hex_grid_solution.dart';
 
-class PuzzleScreen extends StatefulWidget {
+class SolutionScreen extends StatefulWidget {
   @override
-  _PuzzleScreenState createState() => _PuzzleScreenState();
+  _SolutionScreenState createState() => _SolutionScreenState();
 }
 
-class _PuzzleScreenState extends State<PuzzleScreen> {
+class _SolutionScreenState extends State<SolutionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +56,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             Center(
               child: Container(
                 child: Text(
-                  "Difficulty: ${Provider.of<CurrentData>(context, listen: false).getDifficulty()}",
+                  "SOLUTION",
                   style: Theme.of(context).textTheme.headline2,
                 ),
               ),
@@ -63,37 +64,34 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             Expanded(
               flex: 8,
               child: Center(
-                child: HexGridPuzzleWidget(),
+                child: HexGridSolutionWidget(),
               ),
             ),
-            IntrinsicHeight(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 80),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    PlayScreenCounterIcon(
-                      iconData: Icons.remove,
-                      onTap: () {
-                        Provider.of<CurrentData>(context, listen: false)
-                            .getPreviousNumber();
-                      },
-                    ),
-                    Container(
-                      child: Text(
-                        "${Provider.of<CurrentData>(context).getCurrentNumber() != 19 ? Provider.of<CurrentData>(context).getCurrentNumber() : ''}",
-                        style: Theme.of(context).textTheme.headline3,
+            Opacity(
+              opacity: 0.0,
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 80),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      PlayScreenCounterIcon(
+                        iconData: Icons.remove,
+                        onTap: null,
                       ),
-                    ),
-                    PlayScreenCounterIcon(
-                      iconData: Icons.add,
-                      onTap: () {
-                        Provider.of<CurrentData>(context, listen: false)
-                            .getNextNumber();
-                      },
-                    ),
-                  ],
+                      Container(
+                        child: Text(
+                          "${Provider.of<CurrentData>(context).getCurrentNumber() != 19 ? Provider.of<CurrentData>(context).getCurrentNumber() : ''}",
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                      ),
+                      PlayScreenCounterIcon(
+                        iconData: Icons.add,
+                        onTap: null,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -101,12 +99,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  PlayScreenBottomButton(
-                    title: "Solution",
-                    onPressed: () {
-                      Navigator.pop(context, -3);
-                    },
-                  ),
                   PlayScreenBottomButton(
                     title: "Next Level",
                     onPressed: () {

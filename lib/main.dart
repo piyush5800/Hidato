@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hidato/screens/home_screen.dart';
 import 'package:hidato/screens/puzzle_screen.dart';
+import 'package:hidato/screens/solution_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:hidato/data/current_data.dart';
 import 'package:hidato/screens/level_complete_screen.dart';
@@ -46,6 +47,24 @@ class MyApp extends StatelessWidget {
             fontSize: 25,
             fontWeight: FontWeight.w500,
           ),
+          headline6: TextStyle(
+            color: Colors.black54,
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 18,
+          ),
+          bodyText1: TextStyle(
+            color: Colors.black54,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 5,
+          ),
+          bodyText2: TextStyle(
+            color: Colors.black54,
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
+          ),
         ),
         iconTheme: IconThemeData(
           color: Colors.black54,
@@ -70,6 +89,12 @@ class MyApp extends StatelessWidget {
           case '/levelComplete':
             return PageTransition(
                 child: LevelCompleteScreen(),
+                type: PageTransitionType.fade,
+                duration: Duration(milliseconds: 400));
+            break;
+          case '/solution':
+            return PageTransition(
+                child: SolutionScreen(),
                 type: PageTransitionType.fade,
                 duration: Duration(milliseconds: 400));
             break;

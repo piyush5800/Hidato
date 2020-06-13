@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hidato/components/hex_grid.dart';
 import 'package:provider/provider.dart';
 import 'package:hidato/data/current_data.dart';
 import 'package:hidato/components/play_screen_bottom_button.dart';
-import 'package:hidato/components/play_screen_counter_icon.dart';
 
 class LevelCompleteScreen extends StatelessWidget {
   @override

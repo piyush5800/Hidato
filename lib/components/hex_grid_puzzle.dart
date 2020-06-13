@@ -9,12 +9,12 @@ import 'package:hidato/data/current_data.dart';
 import 'package:provider/provider.dart';
 
 //Widget to lay out the entire grid
-class HexGridWidgetExample extends StatefulWidget {
+class HexGridPuzzleWidget extends StatefulWidget {
   @override
-  _HexGridWidgetExampleState createState() => _HexGridWidgetExampleState();
+  _HexGridPuzzleWidgetState createState() => _HexGridPuzzleWidgetState();
 }
 
-class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
+class _HexGridPuzzleWidgetState extends State<HexGridPuzzleWidget> {
   List<ExampleHexGridChild> children = [];
 
   final double _minHexWidgetSize = 90;
@@ -96,6 +96,7 @@ class _HexGridWidgetExampleState extends State<HexGridWidgetExample> {
     //Get the required data to layout the grid using provider
     Set<int> puzzle = Provider.of<CurrentData>(context).getPuzzle();
     List<int> solution = Provider.of<CurrentData>(context).getSolution();
+
     //Iterate over all the available elements
     for (int i = 0; i < solution.length; i++) {
       children.add(
