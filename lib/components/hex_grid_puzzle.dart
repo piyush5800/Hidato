@@ -27,7 +27,7 @@ class _HexGridPuzzleWidgetState extends State<HexGridPuzzleWidget> {
 
   final double _velocityFactor = 0.0;
 
-  final int _numOfHexGridChildWidgets = 19;
+  int _numOfHexGridChildWidgets;
 
   bool checkSolution() {
     if (Provider.of<CurrentData>(context, listen: false).getNumberOfBlanks() ==
@@ -93,6 +93,8 @@ class _HexGridPuzzleWidgetState extends State<HexGridPuzzleWidget> {
   }
 
   List<HexGridChild> createHexGridChildren(int numOfChildren) {
+    //Set Size of grid
+    _numOfHexGridChildWidgets = Provider.of<CurrentData>(context).getMaxSize();
     //Get the required data to layout the grid using provider
     Set<int> puzzle = Provider.of<CurrentData>(context).getPuzzle();
     List<int> solution = Provider.of<CurrentData>(context).getSolution();

@@ -104,7 +104,7 @@ class CurrentData extends ChangeNotifier {
   }
 
   void insertNumberUponRemoval(int removedValue) {
-    if (_currentNumber == 19) {
+    if (_currentNumber == _maxSize) {
       //Handles the case when all numbers are inserted and one is removed
       _blanks.add(removedValue);
       _currentNumberIndex = 0;

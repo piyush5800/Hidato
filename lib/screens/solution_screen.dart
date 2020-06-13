@@ -81,7 +81,7 @@ class _SolutionScreenState extends State<SolutionScreen> {
                       ),
                       Container(
                         child: Text(
-                          "${Provider.of<CurrentData>(context).getCurrentNumber() != 19 ? Provider.of<CurrentData>(context).getCurrentNumber() : ''}",
+                          "${Provider.of<CurrentData>(context).getCurrentNumber() != Provider.of<CurrentData>(context).getMaxSize() ? Provider.of<CurrentData>(context).getCurrentNumber() : ''}",
                           style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
