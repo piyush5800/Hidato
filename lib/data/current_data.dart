@@ -14,8 +14,8 @@ class CurrentData extends ChangeNotifier {
   void setLevel(int level) {
     this._level = level;
     Puzzles puzzles = Puzzles();
-    _puzzle = puzzles.getPuzzle_19(_level);
-    _solution = puzzles.getSolution_19(_level);
+    _puzzle = puzzles.getPuzzle(_level);
+    _solution = puzzles.getSolution(_level);
     _blanks = puzzles.getBlanks(_level);
     _blanks.sort();
     _currentNumberIndex = 0;
@@ -129,5 +129,9 @@ class CurrentData extends ChangeNotifier {
 
   int getNumberOfBlanks() {
     return _blanks.length;
+  }
+
+  int getMaxSize() {
+    return this._maxSize;
   }
 }

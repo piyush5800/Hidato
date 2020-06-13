@@ -27,7 +27,7 @@ class _HexGridSolutionWidgetState extends State<HexGridSolutionWidget> {
 
   final double _velocityFactor = 0.0;
 
-  final int _numOfHexGridChildWidgets = 19;
+  int _numOfHexGridChildWidgets;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,6 +47,9 @@ class _HexGridSolutionWidgetState extends State<HexGridSolutionWidget> {
   }
 
   List<HexGridChild> createHexGridChildren(int numOfChildren) {
+    //Set Size of grid
+    _numOfHexGridChildWidgets = Provider.of<CurrentData>(context).getMaxSize();
+
     //Get the required data to layout the grid using provider
     Set<int> puzzle = Provider.of<CurrentData>(context).getPuzzle();
     List<int> solution = Provider.of<CurrentData>(context).getSolution();
